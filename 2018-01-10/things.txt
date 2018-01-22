@@ -1,0 +1,8 @@
+cat
+dog
+bird
+hound
+goldfish
+giraffe
+raptor
+trex
