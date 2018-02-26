@@ -1,3 +1,8 @@
+import pygame
+
+
+pygame.draw.circle(surface,(0,0,0), (0,0), 10)
+
 MAX_STONES = 3
 
 class Collector:
