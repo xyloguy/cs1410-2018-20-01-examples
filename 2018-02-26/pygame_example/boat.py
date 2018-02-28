@@ -1,10 +1,10 @@
 import pygame
 
 class Boat:
-    def __init__(self, width, height):
+    def __init__(self, width, height, skycolor=(0,0,0)):
         self.width = width
         self.height = height
-        self.skycolor = (0, 0, 0)
+        self.skycolor = skycolor
 
     def set_sky_color(self, color):
         self.skycolor = color
