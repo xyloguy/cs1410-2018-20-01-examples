@@ -1,6 +1,6 @@
-from expomarker import ExpoMarker
+from expomarker import BlueExpoMarker
 
-black_expo = ExpoMarker((0, 0, 0))
+black_expo = BlueExpoMarker()
 black_expo.add_owner('John')
 
 print(black_expo.owner)
