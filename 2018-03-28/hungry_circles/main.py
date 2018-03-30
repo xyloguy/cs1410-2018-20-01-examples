@@ -18,9 +18,17 @@ class PygameApp(game.Game):
         game.Game.__init__(self, title, width, height, frame_rate)
 
         self.balls = []
-        for i in range(1000):
-            self.balls.append(ball.Ball(width, height))
+        for i in range(50):
+            self.add_ball()
         return
+
+    def add_ball(self):
+        self.balls.append(ball.Ball(self.width, self.height))
+
+    def remove_dead_balls(self):
+        for b in self.balls:
+            if not b.alive:
+                self.balls.remove(b)
 
     def game_logic(self, keys, newkeys, buttons, newbuttons, mouse_position, dt):
         x = mouse_position[0]
@@ -28,10 +36,15 @@ class PygameApp(game.Game):
 
         for b in self.balls:
             for b2 in self.balls:
-                if b != b2 and b.hits(b2):
-                    print('hit')
+                if b.hits(b2):
+                    if b > b2:
+                        b += b2
+                    else:
+                        b2 += b
+                    #self.add_ball()
             b.move(dt)
 
+        self.remove_dead_balls()
 
         return
 

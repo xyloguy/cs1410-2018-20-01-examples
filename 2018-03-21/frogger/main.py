@@ -21,6 +21,14 @@ class PygameApp(game.Game):
         self.road = froggerlib.Road(0, 6 * VG, SCREEN_WIDTH, 4 * VG)
         self.frog = None
         self.restart()
+
+        y = 9 * VG + PADDING
+        self.cars = [
+            froggerlib.Car(0, y, FROG_SIZE * 2, FROG_SIZE, SCREEN_WIDTH, y, 5),
+            froggerlib.Car(SCREEN_WIDTH//4 * 3, y, FROG_SIZE * 2, FROG_SIZE, SCREEN_WIDTH, y, 5),
+            froggerlib.Car(SCREEN_WIDTH//4 * 2, y, FROG_SIZE * 2, FROG_SIZE, SCREEN_WIDTH, y, 5),
+            froggerlib.Car(SCREEN_WIDTH//4, y, FROG_SIZE * 2, FROG_SIZE, SCREEN_WIDTH, y, 5),
+        ]
         return
 
     def restart(self):
@@ -33,6 +41,9 @@ class PygameApp(game.Game):
             return True
 
         # did it get hit by a car?
+        for c in self.cars:
+            if c.hits(self.frog):
+                return True
 
         # did drown?
 
@@ -61,6 +72,13 @@ class PygameApp(game.Game):
         if pygame.K_DOWN in newkeys:
             self.frog.down()
 
+        for c in self.cars:
+            c.move()
+            if c.atDesiredLocation():
+                if c.getDesiredX() > 0:
+                    c.setX(0 - c.getWidth())
+                else:
+                    c.setX(SCREEN_WIDTH)
         self.frog.move()
 
         return
@@ -92,6 +110,10 @@ class PygameApp(game.Game):
         color = (0, 255, 0)
         self.draw_object(surface, self.frog, color)
 
+    def draw_car(self, surface, car):
+        color = (255, 0, 0)
+        self.draw_object(surface, car, color)
+
     def draw_grid(self, surface):
         if not DEBUG:
             return
@@ -108,6 +130,10 @@ class PygameApp(game.Game):
         self.draw_stage(surface, self.stage1)
         self.draw_stage(surface, self.stage2)
         self.draw_road(surface, self.road)
+
+
+        for c in self.cars:
+            self.draw_car(surface, c)
 
 
 
