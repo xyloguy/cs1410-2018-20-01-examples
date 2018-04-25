@@ -1,7 +1,7 @@
 class Account:
     def __init__(self, holder, account_number, starting_balance):
         self.holder = holder
-        self.number = account_number
+        self.number = int(account_number)
         self.balance = float(starting_balance)
 
     def get_holder(self):
@@ -25,6 +25,11 @@ class Account:
             return True
         return False
 
+    def __add__(self, other):
+        balance = self.get_balance() + other.get_balance()
+        account_number = (self.get_account_number() + other.get_account_number()) // 2
+        holder = self.get_holder() + ' and ' + other.get_holder()
+        return Account(holder, account_number, balance)
 
 if __name__ == '__main__':
     a = Account('John', 123, 1500.05)
